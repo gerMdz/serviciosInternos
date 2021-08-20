@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  servicios-mailcatcher:
+    container_name: servicios-mailcatcher
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+    networks:
+      - servicios-network
+
+networks:
+  servicios-network:
+    external: true
