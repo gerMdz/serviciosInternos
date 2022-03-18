@@ -10,7 +10,30 @@ services:
 
     networks:
       - servicios-network
+  denuncias-phpunit-db:
+    container_name: denuncias-phpunit-db
+    build:
+      context: ./docker/database
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - denuncias-phpunit-db-data:/var/lib/mysql
+#      - /var/data/mysql:/var/lib/mysql
+      - /etc/mysql:/etc/mysql
+      - ./mysql-files:/var/lib/mysql-files
+#      - denuncias-phpunit-db-data:/data/home/gerardo/mysql
+    networks:
+      - servicios-network
+    command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
 
 networks:
   servicios-network:
     external: true
+volumes:
+  ###> doctrine/doctrine-bundle ###
+  denuncias-phpunit-db-data:
+###< doctrine/doctrine-bundle ###
